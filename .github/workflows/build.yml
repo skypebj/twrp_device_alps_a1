@@ -57,7 +57,10 @@ jobs:
         export LC_ALL=C
         source build/envsetup.sh
         lunch twrp_a1-eng
+        # Pre-create root directory to prevent rsync missing directory error
+        mkdir -p out/target/product/a1/root
         mka vendorbootimage -j$(nproc)
+      
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
