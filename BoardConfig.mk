@@ -8,10 +8,10 @@ TARGET_CPU_ABI2 :=
 TARGET_CPU_VARIANT := cortex-a53
 
 TARGET_2ND_ARCH := arm
-TARGET_2ND_ARCH_VARIANT := armv7-a-neon
+TARGET_2ND_ARCH_VARIANT := armv8-a
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
-TARGET_2ND_CPU_VARIANT := cortex-a53
+TARGET_2ND_CPU_VARIANT := generic
 
 # Bootloader / Kernel
 TARGET_NO_KERNEL := false
@@ -60,5 +60,5 @@ TW_EXCLUDE_DEFAULT_USB_INIT := true
 
 # Allow missing dependencies for minimal build
 ALLOW_MISSING_DEPENDENCIES := true
-
+TW_DEVICE_VERSION := 12.1
 
