@@ -31,6 +31,13 @@ BOARD_FLASH_BLOCK_SIZE := 131072
 
 # A/B & Virtual A/B
 AB_OTA_UPDATER := true
+AB_OTA_PARTITIONS += \
+    boot \
+    vendor_boot \
+    dtbo \
+    vbmeta \
+    vbmeta_system \
+    vbmeta_vendor
 BOARD_USES_RECOVERY_AS_BOOT := false
 BOARD_MOVE_RECOVERY_RESOURCES_TO_VENDOR_BOOT := true
 
