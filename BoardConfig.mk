@@ -61,4 +61,4 @@ TW_EXCLUDE_DEFAULT_USB_INIT := true
 # Allow missing dependencies for minimal build
 ALLOW_MISSING_DEPENDENCIES := true
 TW_DEVICE_VERSION := 12.1
-
+TW_THEME := portrait_hdpi
