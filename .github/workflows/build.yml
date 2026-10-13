@@ -5,12 +5,12 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 90
 
     steps:
     - name: Checkout Device Tree
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         path: twrp_device
 
@@ -27,7 +27,10 @@ jobs:
           libc6-dev-i386 libncurses5 lib32ncurses5-dev x11proto-core-dev libx11-dev \
           lib32z1-dev libgl1-mesa-dev libxml2-utils xsltproc unzip fontconfig python3 bc libssl-dev rsync
         
-        # Git config to prevent git interactive prompt
+        # Symlink python if needed
+        sudo ln -sf /usr/bin/python3 /usr/bin/python || true
+
+        # Git configs
         git config --global user.name "Builder"
         git config --global user.email "builder@github.com"
         git config --global color.ui false
@@ -43,7 +46,6 @@ jobs:
       run: |
         mkdir -p ~/twrp && cd ~/twrp
         repo init --depth=1 -u https://github.com/minimal-tw-rp/platform_manifest_twrp_aosp.git -b twrp-11
-        # Set max network retries and concurrency
         repo sync -j4 --fail-fast --no-clone-bundle --no-tags
 
     - name: Setup Device Directory
@@ -61,7 +63,7 @@ jobs:
         mka vendorbootimage -j$(nproc)
 
     - name: Upload Artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: TWRP-vendor_boot-a1
         path: ~/twrp/out/target/product/a1/vendor_boot.img
