@@ -25,11 +25,8 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y git-core gnupg flex bison build-essential zip curl zlib1g-dev \
           libc6-dev-i386 libncurses5 lib32ncurses5-dev x11proto-core-dev libx11-dev \
-          lib32z1-dev libgl1-mesa-dev libxml2-utils xsltproc unzip fontconfig python3 bc libssl-dev rsync
+          lib32z1-dev libgl1-mesa-dev libxml2-utils xsltproc unzip fontconfig python3 python-is-python3 bc libssl-dev rsync
         
-        # Symlink python if needed
-        sudo ln -sf /usr/bin/python3 /usr/bin/python || true
-
         # Git configs
         git config --global user.name "Builder"
         git config --global user.email "builder@github.com"
@@ -45,7 +42,8 @@ jobs:
     - name: Sync TWRP 11.0 Source
       run: |
         mkdir -p ~/twrp && cd ~/twrp
-        repo init --depth=1 -u https://github.com/minimal-tw-rp/platform_manifest_twrp_aosp.git -b twrp-11
+        # Correct official TWRP 11.0 minimal manifest URL
+        repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_omni.git -b twrp-11
         repo sync -j4 --fail-fast --no-clone-bundle --no-tags
 
     - name: Setup Device Directory
