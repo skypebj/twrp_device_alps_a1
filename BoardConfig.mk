@@ -57,3 +57,8 @@ TW_HAS_MTP := true
 TW_USE_TOOLBOX := true
 TW_EXCLUDE_APEX := true
 TW_EXCLUDE_DEFAULT_USB_INIT := true
+
+# Allow missing dependencies for minimal build
+ALLOW_MISSING_DEPENDENCIES := true
+
+
