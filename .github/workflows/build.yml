@@ -43,7 +43,7 @@ jobs:
       run: |
         mkdir -p ~/twrp && cd ~/twrp
         repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-12.1
-        repo sync -j4 --fail-fast --no-clone-bundle --no-tags
+        repo sync -c -j2 --no-clone-bundle --no-tags --force-sync --retry-fetches=5
 
     - name: Setup Device Directory
       run: |
