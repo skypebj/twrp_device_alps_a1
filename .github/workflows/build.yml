@@ -6,6 +6,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-20.04
+    timeout-minutes: 90
 
     steps:
     - name: Checkout Device Tree
@@ -24,7 +25,12 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y git-core gnupg flex bison build-essential zip curl zlib1g-dev \
           libc6-dev-i386 libncurses5 lib32ncurses5-dev x11proto-core-dev libx11-dev \
-          lib32z1-dev libgl1-mesa-dev libxml2-utils xsltproc unzip fontconfig python3 bc libssl-dev
+          lib32z1-dev libgl1-mesa-dev libxml2-utils xsltproc unzip fontconfig python3 bc libssl-dev rsync
+        
+        # Git config to prevent git interactive prompt
+        git config --global user.name "Builder"
+        git config --global user.email "builder@github.com"
+        git config --global color.ui false
 
     - name: Install Repo Tool
       run: |
@@ -37,7 +43,8 @@ jobs:
       run: |
         mkdir -p ~/twrp && cd ~/twrp
         repo init --depth=1 -u https://github.com/minimal-tw-rp/platform_manifest_twrp_aosp.git -b twrp-11
-        repo sync -j$(nproc) -c --no-clone-bundle --no-tags
+        # Set max network retries and concurrency
+        repo sync -j4 --fail-fast --no-clone-bundle --no-tags
 
     - name: Setup Device Directory
       run: |
@@ -47,6 +54,8 @@ jobs:
     - name: Build TWRP vendor_boot
       run: |
         cd ~/twrp
+        export ALLOW_MISSING_DEPENDENCIES=true
+        export LC_ALL=C
         source build/envsetup.sh
         lunch twrp_a1-eng
         mka vendorbootimage -j$(nproc)
