@@ -57,8 +57,18 @@ jobs:
         export LC_ALL=C
         source build/envsetup.sh
         lunch twrp_a1-eng
-        # Pre-create root directory to prevent rsync missing directory error
+
+        # 1. 预先建立所有 recovery 打包脚本依赖的目录层级
         mkdir -p out/target/product/a1/root
+        mkdir -p out/target/product/a1/recovery/root/system/etc
+        mkdir -p out/target/product/a1/recovery/root/system/bin
+        mkdir -p out/target/product/a1/recovery/root/res/images
+
+        # 2. 预先建立属性桩文件，防止软链接目标丢失报错
+        touch out/target/product/a1/recovery/root/prop.default
+        touch out/target/product/a1/recovery/root/default.prop
+
+        # 3. 执行最终构建
         mka vendorbootimage -j$(nproc)
       
 
