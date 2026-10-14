@@ -16,13 +16,13 @@ TARGET_2ND_CPU_VARIANT := generic
 # Bootloader / Kernel / Vendor Boot Header
 TARGET_NO_KERNEL := true
 BOARD_BOOT_HEADER_VERSION := 3
-BOARD_MKBOOTIMG_ARGS := --header_version 3
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_RAMDISK_USE_LZ4 := true
 
-# DTB Configuration
-BOARD_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/dtb
+# DTB Configuration & Explicit mkbootimg Arguments
 TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/dtb
+BOARD_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/dtb
+BOARD_MKBOOTIMG_ARGS := --header_version 3 --dtb $(DEVICE_PATH)/prebuilt/dtb
 
 # A/B & Virtual A/B & Vendor Boot Setup
 AB_OTA_UPDATER := true
