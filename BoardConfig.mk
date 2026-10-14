@@ -21,9 +21,8 @@ BOARD_KERNEL_PAGESIZE := 2048
 BOARD_RAMDISK_USE_LZ4 := true
 
 # DTB Configuration
+BOARD_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/dtb
 TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/dtb
-BOARD_INCLUDE_DTB_IN_BOOTIMG := false
-BOARD_PREBUILT_DTBIMAGE_DIR := $(DEVICE_PATH)/prebuilt
 
 # A/B & Virtual A/B & Vendor Boot Setup
 AB_OTA_UPDATER := true
